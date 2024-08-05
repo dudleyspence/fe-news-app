@@ -1,0 +1,48 @@
+.articles-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  background-color: var(--color-card);
+}
+.article-card-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+}
+
+.article-list-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 3px;
+}
+
+.article-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.article-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  scale: 1.03;
+}
+
+.article-card:active {
+  scale: 1.03;
+}
+
+h3 {
+  font-size: 0.8rem;
+}
