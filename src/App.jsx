@@ -4,6 +4,8 @@ import SiteLogicProvider from "./components/SiteLogicProvider";
 import Footer from "./components/Footer";
 import "../stylesheets/App.css";
 import "../stylesheets/ArticlesList.css";
+import "../stylesheets/singleArticle.css";
+import "../stylesheets/voter.css";
 
 function App() {
   return (

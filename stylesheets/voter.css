@@ -1,0 +1,7 @@
+.votes-container button {
+  background-color: rgba(82, 140, 206, 0.149);
+}
+
+.votes-container button.vote {
+  background-color: rgba(82, 140, 206, 0.9);
+}

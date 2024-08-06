@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getArticles } from "../../api";
-import Article from "./Article";
+import { fetchArticles } from "../../api";
+import ArticleCard from "./ArticleCard";
+import { Link } from "react-router-dom";
 
 export default function ArticlesList(props) {
   const { articlesList, setArticlesList, topic } = props;
@@ -9,9 +10,8 @@ export default function ArticlesList(props) {
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles(topic)
+    fetchArticles(topic)
       .then(({ data }) => {
-        console.log(data);
         setArticlesList(data.articles);
         setIsLoading(false);
       })
@@ -19,7 +19,7 @@ export default function ArticlesList(props) {
         setIsError(true);
         setIsLoading(false);
       });
-  }, [topic]);
+  }, [topic, setArticlesList]);
 
   return isError ? (
     "Error"
@@ -29,9 +29,13 @@ export default function ArticlesList(props) {
     <section className="section-container">
       <div id="articles-list-container">
         <ul className="articles-list">
-          {articlesList.map((article) => {
-            return <Article article={article} key={article.article_id} />;
-          })}
+          {articlesList.map((article) => (
+            <li key={article.article_id} style={{ listStyle: "none" }}>
+              <Link to={`/article/${article.article_id}`}>
+                <ArticleCard article={article} />
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </section>

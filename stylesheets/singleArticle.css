@@ -1,0 +1,19 @@
+.SingleArticle {
+  background-color: var(--color-card);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.singleArticleContent img {
+  width: 90%;
+}
+
+.aboveSingleArticle {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}

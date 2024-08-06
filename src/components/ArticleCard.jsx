@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Article({ article }) {
+export default function ArticleCard({ article }) {
   return (
     <div className="article-card">
       <h3>{article.title}</h3>
