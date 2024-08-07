@@ -4,6 +4,8 @@ import { fetchArticleById } from "../../api";
 import VotesControl from "./VotesControl";
 import CommentSection from "./CommentSection";
 import { updateArticleVotes } from "../../api";
+import CreatedTime from "./CreatedTime";
+import AddComment from "./AddComment";
 
 export default function SingleArticle() {
   const { article_id } = useParams();
@@ -31,13 +33,17 @@ export default function SingleArticle() {
     "Page Loading"
   ) : (
     <section className="section-container">
-      <article className="SingleArticle">
+      <article className="singleArticle">
         <h1>{article.title}</h1>
         <div className="aboveSingleArticle">
-          <div className="SingleArticleInfo">
+          <div className="singleArticleInfo">
             <h2>{article.author}</h2>
-            <p className="SingleArticleTopic">{article.topic}</p>
-            <p className="SingleArticleCreatedDate">{article.created_at}</p>
+            <p className="singleArticleTopic">{article.topic}</p>
+            <CreatedTime
+              className="articleDateTime"
+              timeString={article.created_at}
+              isTimeFromNow={false}
+            />
           </div>
           <VotesControl
             id={article.article_id}
@@ -50,7 +56,8 @@ export default function SingleArticle() {
           <div className="ArticleBody">{article.body}</div>
         </div>
       </article>
-      <div className="commentSection" id="commentSections">
+      <div className="comment-section" id="commentSection">
+        <AddComment />
         <CommentSection
           article_id={article_id}
           comment_count={article.comment_count}

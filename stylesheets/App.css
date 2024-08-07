@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  --background-color: #e5e9d7;
-  --secondary-background-color: #eaddc5;
-  --primary-colour: #92a376;
-  --text-color: #4a4a4a;
+  --background-color: rgb(244, 241, 222, 0.2);
+  --Header-color: #92a376;
+  --primary-colour: #f4f1de;
+  --comment-section: rgb(146, 163, 118, 0.2);
+  --comment-single: rgb(146, 163, 118, 0.4);
+  --title-color: #f4f1de;
+  --text-color: #36454f;
 }
 
 * {
@@ -17,6 +20,7 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: 200;
   font-style: light;
+  color: var(--text-color);
 }
 
 .section-container {
