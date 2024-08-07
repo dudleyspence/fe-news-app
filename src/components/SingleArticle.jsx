@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchArticleById } from "../../api";
-import ArticleVotes from "./ArticleVotes";
-import CommentButton from "./SingleArticleCommentButton";
+import VotesControl from "./VotesControl";
+import CommentSection from "./CommentSection";
+import { updateArticleVotes } from "../../api";
 
 export default function SingleArticle() {
   const { article_id } = useParams();
@@ -38,19 +39,23 @@ export default function SingleArticle() {
             <p className="SingleArticleTopic">{article.topic}</p>
             <p className="SingleArticleCreatedDate">{article.created_at}</p>
           </div>
-          <ArticleVotes
-            article_id={article.article_id}
+          <VotesControl
+            id={article.article_id}
             currVotes={article.votes}
+            updateVotes={updateArticleVotes}
           />
         </div>
         <div className="singleArticleContent">
           <img src={article.article_img_url} alt="article_img" />
           <div className="ArticleBody">{article.body}</div>
         </div>
-        <div className="bellowSingleArticle">
-          <CommentButton />
-        </div>
       </article>
+      <div className="commentSection" id="commentSections">
+        <CommentSection
+          article_id={article_id}
+          comment_count={article.comment_count}
+        />
+      </div>
     </section>
   );
 }

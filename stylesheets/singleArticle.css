@@ -1,5 +1,4 @@
 .SingleArticle {
-  background-color: var(--color-card);
   padding: 10px;
   display: flex;
   flex-direction: column;
