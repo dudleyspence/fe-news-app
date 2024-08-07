@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { updateArticleVotes } from "../../api";
 
-export default function ArticleVotes({ article_id, currVotes }) {
+export default function VotesControl({ id, currVotes, updateVotes }) {
   const [votes, setVotes] = useState(currVotes);
   const [userVote, setUserVote] = useState(0);
 
@@ -25,7 +24,7 @@ export default function ArticleVotes({ article_id, currVotes }) {
     setVotes(votes + voteChange);
     console.log(votes, "<<< Votes");
 
-    updateArticleVotes(article_id, userVote).catch((err) => {
+    updateVotes(id, userVote).catch((err) => {
       console.log(err);
       setVotes(votes - userVote);
       setUserVote(initialUserVote);
@@ -53,7 +52,7 @@ export default function ArticleVotes({ article_id, currVotes }) {
     setVotes(votes + voteChange);
     console.log(votes, "<<< Votes");
 
-    updateArticleVotes(article_id, userVote).catch((err) => {
+    updateVotes(id, userVote).catch((err) => {
       console.log(err);
       setVotes(votes - userVote);
       setUserVote(initialUserVote);

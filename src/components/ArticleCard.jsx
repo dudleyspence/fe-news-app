@@ -1,4 +1,5 @@
 import React from "react";
+import VotesControl from "./VotesControl";
 
 export default function ArticleCard({ article }) {
   return (
