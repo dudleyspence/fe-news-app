@@ -17,6 +17,12 @@ export default function CommentSections({ article_id, comment_count }) {
     setPageNo(pageNo - 1);
   }
 
+  function handleCommentsPerPage(event) {
+    const selectedCommentsPerPage = Number(event.target.value);
+    setCommentsPerPage(selectedCommentsPerPage);
+    setPageNo(1);
+  }
+
   useEffect(() => {
     setIsLoading(true);
     fetchCommentsByArticleId(article_id, pageNo, commentsPerPage)
@@ -25,6 +31,7 @@ export default function CommentSections({ article_id, comment_count }) {
         setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         setIsError(true);
         console.log(err);
       });
@@ -49,6 +56,19 @@ export default function CommentSections({ article_id, comment_count }) {
         Showing {lowerCommentIndex}-{upperCommentIndex} of {comment_count + " "}
         comments
       </p>
+      <label htmlFor="commentsPerPage">
+        Comments Per Page:
+        <select
+          name="commentsPerPage"
+          id="commentsPerPage"
+          onChange={handleCommentsPerPage}
+          value={commentsPerPage}
+        >
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+        </select>
+      </label>
       <button onClick={handleNextPageClick} disabled={isLastPage}>
         Next Page
       </button>
