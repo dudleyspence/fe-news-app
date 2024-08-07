@@ -7,6 +7,8 @@ import { updateArticleVotes } from "../../api";
 import CreatedTime from "./CreatedTime";
 import AddComment from "./AddComment";
 
+import ReactMarkdown from "react-markdown";
+
 export default function SingleArticle() {
   const { article_id } = useParams();
   const [article, setArticle] = useState("");
@@ -53,7 +55,9 @@ export default function SingleArticle() {
         </div>
         <div className="singleArticleContent">
           <img src={article.article_img_url} alt="article_img" />
-          <div className="ArticleBody">{article.body}</div>
+          <div className="ArticleBody">
+            <ReactMarkdown>{article.body}</ReactMarkdown>
+          </div>
         </div>
       </article>
       <div className="comment-section" id="commentSection">
