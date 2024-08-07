@@ -6,6 +6,9 @@ import "../stylesheets/App.css";
 import "../stylesheets/ArticlesList.css";
 import "../stylesheets/singleArticle.css";
 import "../stylesheets/voter.css";
+import "../stylesheets/header.css";
+import "../stylesheets/mobileNav.css";
+import "../stylesheets/comment-section.css";
 
 function App() {
   return (

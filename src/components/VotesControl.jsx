@@ -1,8 +1,29 @@
 import { useState } from "react";
+import mountainUp from "../assets/mountain-up.png";
+import mountainDown from "../assets/mountain-down.png";
+import arrowDown from "../assets/arrow-down.png";
+import arrowUp from "../assets/arrow-up.png";
 
-export default function VotesControl({ id, currVotes, updateVotes }) {
+export default function VotesControl({
+  id,
+  currVotes,
+  updateVotes,
+  isArticle = true,
+}) {
   const [votes, setVotes] = useState(currVotes);
   const [userVote, setUserVote] = useState(0);
+
+  let upvoteImg = "";
+  let downvoteImg = "";
+
+  if (isArticle) {
+    upvoteImg = mountainUp;
+    downvoteImg = mountainDown;
+  } else {
+    // comment votes
+    upvoteImg = arrowUp;
+    downvoteImg = arrowDown;
+  }
 
   const handleUpVote = () => {
     const initialUserVote = userVote;
@@ -59,19 +80,26 @@ export default function VotesControl({ id, currVotes, updateVotes }) {
     });
   };
 
+  // conditional class names for articles and comments as i dont want them to look like the same voting.
+
   return (
-    <div className="votes-container">
-      <p className="current-votes">Votes: {votes}</p>
-      <button onClick={handleUpVote} className={userVote === 1 ? "vote" : ""}>
-        Upvote
-      </button>
-      <button
-        onClick={handleDownVote}
-        className={userVote === -1 ? "vote" : ""}
-        disabled={votes === 0}
-      >
-        Downvote
-      </button>
+    <div className={isArticle ? "article-votes" : "comment-votes"}>
+      {isArticle && (
+        <p className="current-altitude-votes">Altitude: {votes}m</p>
+      )}
+      <div className="vote-controls">
+        <button onClick={handleUpVote} className={userVote === 1 ? "vote" : ""}>
+          <img className="voteImg" src={upvoteImg} alt="upvote-button" />
+        </button>
+        {!isArticle && <p className="current-comment-votes">{votes}</p>}
+        <button
+          onClick={handleDownVote}
+          className={userVote === -1 ? "vote" : ""}
+          disabled={votes === 0}
+        >
+          <img className="voteImg" src={downvoteImg} alt="downvote-button" />
+        </button>
+      </div>
     </div>
   );
 }
