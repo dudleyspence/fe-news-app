@@ -57,7 +57,7 @@ export default function SingleArticle() {
         </div>
       </article>
       <div className="comment-section" id="commentSection">
-        <AddComment />
+        <AddComment article_id={article.article_id} />
         <CommentSection
           article_id={article_id}
           comment_count={article.comment_count}

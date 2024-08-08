@@ -1,0 +1,47 @@
+.loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+}
+
+.loginPage form {
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  gap: 2rem;
+  align-items: center;
+  flex-direction: column;
+  height: 30vh;
+  background-color: var(--login-color);
+  padding: 30px;
+  color: var(--text-color);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.2);
+}
+
+.loginPage input {
+  padding: 3px 5px;
+  width: 80%;
+  border-radius: 3px;
+  border: none;
+}
+
+.styled-button {
+  width: 40px;
+  height: 20px;
+
+  background-color: var(--Header-color);
+  color: #f4f1de;
+  border: none;
+  border-radius: 5px;
+  font-size: 7px;
+  font-weight: bold;
+  text-align: center;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}

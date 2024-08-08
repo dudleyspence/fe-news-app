@@ -1,5 +1,4 @@
 .singleArticle {
-  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,6 +15,7 @@
   flex-direction: row;
   gap: 1.5rem;
   width: 100%;
+  justify-content: space-around;
 }
 
 .singleArticleContent {
@@ -43,4 +43,7 @@
 
 .ArticleBody {
   background-color: #f0f0f0;
+  padding: 20px;
+  margin-bottom: 20px;
+  line-height: 2rem;
 }

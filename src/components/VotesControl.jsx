@@ -85,7 +85,7 @@ export default function VotesControl({
   return (
     <div className={isArticle ? "article-votes" : "comment-votes"}>
       {isArticle && (
-        <p className="current-altitude-votes">Altitude: {votes}m</p>
+        <p className="current-altitude-votes">Altitude Points: {votes}m</p>
       )}
       <div className="vote-controls">
         <button onClick={handleUpVote} className={userVote === 1 ? "vote" : ""}>

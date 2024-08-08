@@ -15,3 +15,20 @@ header {
   justify-content: center;
   gap: 2rem;
 }
+
+.rightHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1vh;
+}
+
+.rightHeader img {
+  height: 7vh;
+  border-radius: 20px;
+}
+
+.rightHeader p {
+  font-size: 0.7rem;
+}

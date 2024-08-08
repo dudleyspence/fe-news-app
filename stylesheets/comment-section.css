@@ -26,13 +26,9 @@
   margin-left: 10px;
 }
 
-.commentsPerPage {
-  padding-top: 10px;
-  padding-left: 20px;
-}
-
-.commentsPerPage span {
-  margin-right: 15px;
+.commentsPerPage,
+.sortBy {
+  padding: 15px;
 }
 
 .pageControls {
@@ -45,10 +41,42 @@
 .totalComments {
   padding-top: 15px;
   padding-left: 20px;
+  text-align: left;
+  margin-left: 8%;
 }
 
 .listOfComments .dateAndTime {
   margin-top: 5px;
   margin-bottom: 5px;
   color: white;
+}
+
+.addComment-container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.addComment-container textarea {
+  width: 80%;
+  height: 20vh;
+  max-height: 250px !important;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 6px;
+}
+
+.commentControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.commentControls label {
+  margin-right: 10px;
 }

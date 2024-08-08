@@ -24,12 +24,16 @@ export const updateArticleVotes = (article_id, voteChange) => {
 export const fetchCommentsByArticleId = (
   article_id,
   pageNo,
-  commentsPerPage
+  commentsPerPage,
+  sortBy,
+  order
 ) => {
   const queries = {
     params: {
       limit: commentsPerPage,
       p: pageNo,
+      sort_by: sortBy,
+      order: order,
     },
   };
   return newsApi.get(`/articles/${article_id}/comments`, queries);
@@ -37,4 +41,20 @@ export const fetchCommentsByArticleId = (
 
 export const updateCommentVotes = (comment_id, voteChange) => {
   return newsApi.patch(`/comments/${comment_id}`, { inc_votes: voteChange });
+};
+
+export const getUserByUsername = (username) => {
+  console.log(username);
+  return newsApi.get(`/users/${username}`);
+};
+
+export const addArticleCommentByUsername = (article_id, username, body) => {
+  console.log(article_id);
+  console.log(username);
+  console.log(body);
+  const comment = {
+    username: username,
+    body: body,
+  };
+  return newsApi.post(`/articles/${article_id}/comments`, comment);
 };

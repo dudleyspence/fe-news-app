@@ -9,6 +9,8 @@ export default function CommentSections({ article_id, comment_count }) {
   const [isError, setIsError] = useState(false);
   const [pageNo, setPageNo] = useState(1);
   const [commentsPerPage, setCommentsPerPage] = useState(5);
+  const [sortBy, setSortBy] = useState("votes");
+  const [order, setOrder] = useState("desc");
 
   function handleNextPageClick() {
     setPageNo(pageNo + 1);
@@ -16,6 +18,24 @@ export default function CommentSections({ article_id, comment_count }) {
 
   function handleNextPreviousClick() {
     setPageNo(pageNo - 1);
+  }
+
+  function handleSortComments(event) {
+    const selectedSortBy = event.target.value;
+
+    if (selectedSortBy === "votes_desc") {
+      setSortBy("votes");
+      setOrder("desc");
+    } else if (selectedSortBy === "votes_asc") {
+      setSortBy("votes");
+      setOrder("asc");
+    } else if (selectedSortBy === "created_at_desc") {
+      setSortBy("created_at");
+      setOrder("desc");
+    } else if (selectedSortBy === "created_at_asc") {
+      setSortBy("created_at");
+      setOrder("asc");
+    }
   }
 
   function handleCommentsPerPage(event) {
@@ -26,7 +46,7 @@ export default function CommentSections({ article_id, comment_count }) {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchCommentsByArticleId(article_id, pageNo, commentsPerPage)
+    fetchCommentsByArticleId(article_id, pageNo, commentsPerPage, sortBy, order)
       .then(({ data: { comments } }) => {
         setComments(comments);
         setIsLoading(false);
@@ -36,7 +56,7 @@ export default function CommentSections({ article_id, comment_count }) {
         setIsError(true);
         console.log(err);
       });
-  }, [article_id, pageNo, commentsPerPage]);
+  }, [article_id, pageNo, commentsPerPage, sortBy, order]);
 
   const lowerCommentIndex = (pageNo - 1) * commentsPerPage;
   let upperCommentIndex = pageNo * commentsPerPage;
@@ -53,13 +73,23 @@ export default function CommentSections({ article_id, comment_count }) {
     "Loading comments"
   ) : (
     <div className="comments-container">
-      <p className="totalComments">
-        Showing {lowerCommentIndex}-{upperCommentIndex} of {comment_count + " "}
-        comments
-      </p>
-      <div className="commentsPerPage">
-        <label htmlFor="commentsPerPage">
-          <span>Comments Per Page: </span>
+      <div className="commentControls">
+        <div className="sortBy">
+          <label htmlFor="sortBy">Sort By:</label>
+          <select
+            name="sortBy"
+            id="sortBy"
+            onChange={handleSortComments}
+            value={`${sortBy}_${order}`}
+          >
+            <option value="votes_desc">Most Popular</option>
+            <option value="votes_asc">Least Popular</option>
+            <option value="created_at_desc">Newest</option>
+            <option value="created_at_asc">Oldest</option>
+          </select>
+        </div>
+        <div className="commentsPerPage">
+          <label htmlFor="commentsPerPage">Comments Per Page: </label>
           <select
             name="commentsPerPage"
             id="commentsPerPage"
@@ -70,8 +100,12 @@ export default function CommentSections({ article_id, comment_count }) {
             <option value={10}>10</option>
             <option value={20}>20</option>
           </select>
-        </label>
+        </div>
       </div>
+      <p className="totalComments">
+        Showing {lowerCommentIndex}-{upperCommentIndex} of {comment_count + " "}
+        comments
+      </p>
 
       <ul className="listOfComments">
         {comments.map((comment) => (
