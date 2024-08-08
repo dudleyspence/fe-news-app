@@ -41,10 +41,10 @@ export default function SiteLogicProvider() {
           )
         }
       />
-      {/* <Route
+      <Route
         path="*"
         element={userLoggedIn ? <Navigate to="/" /> : <Navigate to="/login" />}
-      /> */}
+      />
     </Routes>
   );
 }

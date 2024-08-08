@@ -26,7 +26,7 @@
   margin-left: 10px;
 }
 
-.commentsPerPage,
+.elementsPerPage,
 .sortBy {
   padding: 15px;
 }
@@ -70,7 +70,7 @@
   padding: 5px 6px;
 }
 
-.commentControls {
+.listControls {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -78,7 +78,7 @@
   margin-top: 20px;
 }
 
-.commentControls label {
+.listControls label {
   margin-right: 10px;
 }
 
@@ -95,4 +95,20 @@
   width: 80px;
   height: 30px;
   font-size: 0.9rem;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+}
+
+.deleteButton img {
+  width: 20px;
+}
+
+.authorControls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
