@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { fetchCommentsByArticleId, updateCommentVotes } from "../../api";
 import VotesControl from "./VotesControl";
 import CreatedTime from "./CreatedTime";
 import AddComment from "./AddComment";
+import ListControls from "./ListControls";
+import { UserContext } from "../context/UserContext";
+import DeleteComment from "./DeleteComment";
 
 export default function CommentSections({ article_id, comment_count }) {
+  const { userLoggedIn } = useContext(UserContext);
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -21,30 +25,6 @@ export default function CommentSections({ article_id, comment_count }) {
 
   function handleNextPreviousClick() {
     setPageNo(pageNo - 1);
-  }
-
-  function handleSortComments(event) {
-    const selectedSortBy = event.target.value;
-
-    if (selectedSortBy === "votes_desc") {
-      setSortBy("votes");
-      setOrder("desc");
-    } else if (selectedSortBy === "votes_asc") {
-      setSortBy("votes");
-      setOrder("asc");
-    } else if (selectedSortBy === "created_at_desc") {
-      setSortBy("created_at");
-      setOrder("desc");
-    } else if (selectedSortBy === "created_at_asc") {
-      setSortBy("created_at");
-      setOrder("asc");
-    }
-  }
-
-  function handleCommentsPerPage(event) {
-    const selectedCommentsPerPage = Number(event.target.value);
-    setCommentsPerPage(selectedCommentsPerPage);
-    setPageNo(1);
   }
 
   useEffect(() => {
@@ -83,35 +63,16 @@ export default function CommentSections({ article_id, comment_count }) {
         setComments={setComments}
         comments={comments}
       />
-      <div className="commentControls">
-        <div className="sortBy">
-          <label htmlFor="sortBy">Sort By:</label>
-          <select
-            name="sortBy"
-            id="sortBy"
-            onChange={handleSortComments}
-            value={`${sortBy}_${order}`}
-          >
-            <option value="votes_desc">Most Popular</option>
-            <option value="votes_asc">Least Popular</option>
-            <option value="created_at_desc">Newest</option>
-            <option value="created_at_asc">Oldest</option>
-          </select>
-        </div>
-        <div className="commentsPerPage">
-          <label htmlFor="commentsPerPage">Comments Per Page: </label>
-          <select
-            name="commentsPerPage"
-            id="commentsPerPage"
-            onChange={handleCommentsPerPage}
-            value={commentsPerPage}
-          >
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-          </select>
-        </div>
-      </div>
+      <ListControls
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        order={order}
+        setOrder={setOrder}
+        pageNo={pageNo}
+        setPageNo={setPageNo}
+        elementsPerPage={commentsPerPage}
+        setElementsPerPage={setCommentsPerPage}
+      />
       <p className="totalComments">
         Showing {lowerCommentIndex}-{upperCommentIndex} of {comment_count + " "}
         comments
@@ -120,7 +81,16 @@ export default function CommentSections({ article_id, comment_count }) {
       <ul className="listOfComments">
         {comments.map((comment) => (
           <li key={comment.comment_id} className="single-comment">
-            <p className="comment-author">{comment.author}: </p>
+            <div className="authorControls">
+              <p className="comment-author">{comment.author}: </p>
+              {comment.author === userLoggedIn.username && (
+                <DeleteComment
+                  comment_id={comment.comment_id}
+                  comments={comments}
+                  setComments={setComments}
+                />
+              )}
+            </div>
             <CreatedTime timeString={comment.created_at} />
             <p className="comment-content">{comment.body}</p>
             <VotesControl
