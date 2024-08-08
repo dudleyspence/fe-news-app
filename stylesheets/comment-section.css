@@ -57,6 +57,7 @@
   justify-content: center;
   width: 100%;
   align-items: center;
+  padding-top: 15px;
   gap: 0.5rem;
 }
 
@@ -79,4 +80,19 @@
 
 .commentControls label {
   margin-right: 10px;
+}
+
+.noComments {
+  text-align: center;
+  padding: 20px;
+}
+
+.commentSuccess {
+  padding: 15px;
+}
+
+.addComment-container button {
+  width: 80px;
+  height: 30px;
+  font-size: 0.9rem;
 }

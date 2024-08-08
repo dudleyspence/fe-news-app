@@ -1,14 +1,15 @@
 import MobileNav from "./MobileNav";
 import { UserContext } from "../context/UserContext";
 import { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
+  const navigate = useNavigate();
   console.log(userLoggedIn);
 
   function handleTitleClick() {
-    Navigate("/");
+    navigate("/");
   }
 
   return userLoggedIn ? (

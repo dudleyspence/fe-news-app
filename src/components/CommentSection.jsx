@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchCommentsByArticleId, updateCommentVotes } from "../../api";
 import VotesControl from "./VotesControl";
 import CreatedTime from "./CreatedTime";
+import AddComment from "./AddComment";
 
 export default function CommentSections({ article_id, comment_count }) {
   const [comments, setComments] = useState([]);
@@ -11,6 +12,8 @@ export default function CommentSections({ article_id, comment_count }) {
   const [commentsPerPage, setCommentsPerPage] = useState(5);
   const [sortBy, setSortBy] = useState("votes");
   const [order, setOrder] = useState("desc");
+
+  console.log(comments, "<<<< Comments");
 
   function handleNextPageClick() {
     setPageNo(pageNo + 1);
@@ -67,12 +70,19 @@ export default function CommentSections({ article_id, comment_count }) {
     upperCommentIndex = comment_count;
   }
 
-  return isError ? (
+  return comment_count === 0 ? (
+    <p className="noComments">There is no comments yet for this post</p>
+  ) : isError ? (
     "error"
   ) : isLoading ? (
     "Loading comments"
   ) : (
     <div className="comments-container">
+      <AddComment
+        article_id={article_id}
+        setComments={setComments}
+        comments={comments}
+      />
       <div className="commentControls">
         <div className="sortBy">
           <label htmlFor="sortBy">Sort By:</label>

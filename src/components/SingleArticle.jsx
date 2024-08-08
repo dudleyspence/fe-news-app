@@ -5,7 +5,6 @@ import VotesControl from "./VotesControl";
 import CommentSection from "./CommentSection";
 import { updateArticleVotes } from "../../api";
 import CreatedTime from "./CreatedTime";
-import AddComment from "./AddComment";
 
 export default function SingleArticle() {
   const { article_id } = useParams();
@@ -57,7 +56,6 @@ export default function SingleArticle() {
         </div>
       </article>
       <div className="comment-section" id="commentSection">
-        <AddComment article_id={article.article_id} />
         <CommentSection
           article_id={article_id}
           comment_count={article.comment_count}
