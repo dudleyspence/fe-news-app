@@ -48,9 +48,12 @@ export default function ArticlesList() {
     <h2>is loading...</h2>
   ) : (
     <section className="section-container">
-      <button className="addArticleButton" onClick={handleAddArticle}>
-        Add Article
-      </button>
+      <div className="addArticleButton">
+        <button className="styled-button" onClick={handleAddArticle}>
+          Add Article
+        </button>
+      </div>
+
       <TopicsNav />
       <ListControls
         sortBy={sortBy}

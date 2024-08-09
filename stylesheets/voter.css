@@ -10,12 +10,15 @@
 
 .article-votes button {
   border: none;
+  padding: 4px;
+  border-radius: 4px;
   background-color: rgba(82, 140, 206, 0.149);
 }
 
 button.vote {
   /* background-color: rgba(82, 140, 206, 0.9); */
   scale: 1.2;
+  background-color: var(--Header-color);
 }
 
 .article-votes .voteImg {

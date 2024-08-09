@@ -1,4 +1,3 @@
-import React from "react";
 import VotesControl from "./VotesControl";
 import CreatedTime from "./CreatedTime";
 import { Link } from "react-router-dom";
@@ -14,11 +13,13 @@ export default function ArticleCard({ article }) {
         <p className="article-topic">{article.topic}</p>
       </Link>
       <CreatedTime timeString={article.created_at} />
-      <img
-        className="article-list-img"
-        src={article.article_img_url}
-        alt="image relating to the article"
-      />
+      <Link to={`/article/${article.article_id}`}>
+        <img
+          className="article-list-img"
+          src={article.article_img_url}
+          alt="image relating to the article"
+        />
+      </Link>
       <div className="article-stats">
         <Link to={`/article/${article.article_id}#commentSection`}>
           <p>Comments: {article.comment_count}</p>

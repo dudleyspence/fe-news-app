@@ -21,6 +21,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.2);
 }
 
 .AddArticle label {
@@ -33,12 +34,13 @@
 .articleInputArea {
   height: 100%;
   padding: 10px;
+  font-family: "Poppins", sans-serif;
 }
 
 .AddArticle textarea,
 input,
 select {
-  border-radius: 5px;
+  border-radius: 3px;
   border: none;
 }
 
@@ -46,4 +48,19 @@ select {
   width: 80px;
   padding: 10px;
   padding-bottom: 20px;
+}
+
+.AddArticle input,
+select {
+  height: 20px;
+}
+
+.addArticleButton {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.addArticleButton button {
+  width: 70px;
 }

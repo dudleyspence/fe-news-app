@@ -29,7 +29,8 @@
 .styled-button {
   width: 40px;
   height: 20px;
-  padding: 10px;
+  padding: 5px;
+  box-sizing: border-box;
 
   background-color: var(--Header-color);
   color: white;
@@ -42,7 +43,7 @@
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease,
     box-shadow 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
 }

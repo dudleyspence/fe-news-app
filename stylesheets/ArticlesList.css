@@ -1,7 +1,7 @@
 .articles-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: center;
 }
 
@@ -40,8 +40,8 @@
 }
 
 h3 {
-  text-decoration: none;
-
+  text-decoration: underline;
+  color: var(--text-color);
   font-size: 0.8rem;
 }
 
@@ -51,5 +51,14 @@ h3 {
 }
 
 .article-topic {
+  text-decoration: underline;
+  color: var(--text-color);
+  cursor: pointer;
   align-self: flex-start;
+}
+
+.article-stats p {
+  text-decoration: underline;
+  color: var(--text-color);
+  cursor: pointer;
 }
