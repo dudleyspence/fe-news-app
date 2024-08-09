@@ -76,3 +76,8 @@ export const deleteCommentByCommentId = (comment_id) => {
 export const getTopics = () => {
   return newsApi.get("/topics");
 };
+
+export const addArticle = (article) => {
+  console.log(article);
+  return newsApi.post("/articles", article);
+};
