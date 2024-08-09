@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import SingleArticle from "./SingleArticle";
 import { UserContext } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
+import ProfilePage from "./ProfilePage";
 
 export default function SiteLogicProvider() {
   const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
@@ -34,6 +35,7 @@ export default function SiteLogicProvider() {
         path={"/"}
         element={userLoggedIn ? <ArticlesList /> : <Navigate to="/login" />}
       />
+      <Route path="/profile" element={<ProfilePage />} />
       <Route path="/topics/:topic" element={<ArticlesList />} />
       <Route
         path="/article/:article_id"

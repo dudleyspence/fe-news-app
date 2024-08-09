@@ -6,7 +6,7 @@ import { getUserByUsername } from "../../api";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [isError, setIsError] = useState(false);
-  const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
+  const { setUserLoggedIn } = useContext(UserContext);
   let navigate = useNavigate();
 
   function handleLoginChange(event) {

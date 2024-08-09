@@ -8,6 +8,7 @@ export default function ListControls({
   setPageNo,
   elementsPerPage,
   setElementsPerPage,
+  canSortByComments = false,
 }) {
   function handleSortElements(event) {
     const selectedSortBy = event.target.value;
@@ -24,6 +25,12 @@ export default function ListControls({
     } else if (selectedSortBy === "created_at_asc") {
       setSortBy("created_at");
       setOrder("asc");
+    } else if (canSortByComments && selectedSortBy === "comment_count_asc") {
+      setSortBy("comment_count");
+      setOrder("asc");
+    } else if (canSortByComments && selectedSortBy === "comment_count_desc") {
+      setSortBy("comment_count");
+      setOrder("desc");
     }
   }
 
@@ -47,6 +54,12 @@ export default function ListControls({
           <option value="votes_asc">Least Popular</option>
           <option value="created_at_desc">Newest</option>
           <option value="created_at_asc">Oldest</option>
+          {canSortByComments && (
+            <option value="comment_count_desc">Most Comments</option>
+          )}
+          {canSortByComments && (
+            <option value="comment_count_asc">Least Comments</option>
+          )}
         </select>
       </div>
       <div className="elementsPerPage">
