@@ -1,3 +1,6 @@
+import nextImg from "../assets/next.png";
+import previousImg from "../assets/previous.png";
+
 export default function PageControls({
   pageNo,
   setPageNo,
@@ -28,11 +31,7 @@ export default function PageControls({
         disabled={isLastPage}
         className="nextPage"
       >
-        <img
-          className="nextButtonImg"
-          src="src/assets/next.png"
-          alt="next page arrow"
-        />
+        <img className="nextButtonImg" src={nextImg} alt="next page arrow" />
         <p>Next</p>
       </button>
       <p className="totalResults">
@@ -46,7 +45,7 @@ export default function PageControls({
       >
         <img
           className="previousButtonImg"
-          src="src/assets/previous.png"
+          src={previousImg}
           alt="previous page arrow"
         />
         <p>Previous</p>
