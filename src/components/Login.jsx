@@ -27,9 +27,7 @@ export default function Login() {
       });
   }
 
-  return isError ? (
-    "Error"
-  ) : (
+  return (
     <section className="loginPage">
       <form>
         <label htmlFor="username">Enter your username:</label>
@@ -40,6 +38,9 @@ export default function Login() {
           value={username}
           placeholder="username"
         ></input>
+        {isError && (
+          <p className="error-message">Incorrect username, please try again.</p>
+        )}
         <button onClick={handleLoginClick} className="styled-button">
           Login
         </button>
