@@ -26,20 +26,30 @@ export default function PageControls({
       <button
         onClick={handleNextPageClick}
         disabled={isLastPage}
-        className="styled-button"
+        className="nextPage"
       >
-        Next Page
+        <img
+          className="nextButtonImg"
+          src="src/assets/next.png"
+          alt="next page arrow"
+        />
+        <p>Next</p>
       </button>
       <p className="totalResults">
         Showing {lowerElementIndex}-{upperElementIndex} of {element_count + " "}
         comments
       </p>
       <button
-        className="styled-button"
+        className="previousPage"
         onClick={handleNextPreviousClick}
         disabled={pageNo === 1}
       >
-        Previous Page
+        <img
+          className="previousButtonImg"
+          src="src/assets/previous.png"
+          alt="previous page arrow"
+        />
+        <p>Previous</p>
       </button>
     </div>
   );

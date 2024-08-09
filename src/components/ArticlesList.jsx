@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchArticles } from "../../api";
 import ArticleCard from "./ArticleCard";
 import TopicsNav from "./TopicsNav";
@@ -16,6 +16,11 @@ export default function ArticlesList() {
   const [sortBy, setSortBy] = useState("created_at");
   const [order, setOrder] = useState("desc");
   const [totalResults, setTotalResults] = useState(0);
+  let navigate = useNavigate();
+
+  function handleAddArticle() {
+    navigate("/addarticle");
+  }
 
   useEffect(() => {
     setPageNo(1);
@@ -43,6 +48,9 @@ export default function ArticlesList() {
     <h2>is loading...</h2>
   ) : (
     <section className="section-container">
+      <button className="addArticleButton" onClick={handleAddArticle}>
+        Add Article
+      </button>
       <TopicsNav />
       <ListControls
         sortBy={sortBy}
