@@ -47,3 +47,7 @@
   position: relative;
   overflow: hidden;
 }
+
+.error-message {
+  text-align: center;
+}

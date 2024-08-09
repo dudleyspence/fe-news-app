@@ -39,7 +39,10 @@ export default function Login() {
           placeholder="username"
         ></input>
         {isError && (
-          <p className="error-message">Incorrect username, please try again.</p>
+          <div className="error-message">
+            <p>Incorrect username</p>
+            <p>please try again</p>
+          </div>
         )}
         <button onClick={handleLoginClick} className="styled-button">
           Login
