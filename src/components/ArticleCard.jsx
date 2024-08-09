@@ -10,7 +10,7 @@ export default function ArticleCard({ article }) {
       <Link to={`/article/${article.article_id}`}>
         <h3>{article.title}</h3>
       </Link>
-      <Link to={`/article/${article.article_id}?topic=${article.topic}`}>
+      <Link to={`/topics/${article.topic}`}>
         <p className="article-topic">{article.topic}</p>
       </Link>
       <CreatedTime timeString={article.created_at} />

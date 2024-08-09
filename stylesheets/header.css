@@ -27,8 +27,14 @@ header {
 .rightHeader img {
   height: 7vh;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .rightHeader p {
+  cursor: pointer;
   font-size: 0.7rem;
+}
+
+header h1 {
+  cursor: pointer;
 }

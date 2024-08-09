@@ -1,14 +1,12 @@
-import { useEffect, useState, useContext } from "react";
-import { fetchCommentsByArticleId, updateCommentVotes } from "../../api";
-import VotesControl from "./VotesControl";
-import CreatedTime from "./CreatedTime";
+import { useEffect, useState } from "react";
+import { fetchCommentsByArticleId } from "../../api";
+
 import AddComment from "./AddComment";
 import ListControls from "./ListControls";
-import { UserContext } from "../context/UserContext";
-import DeleteComment from "./DeleteComment";
+
+import SingleComment from "./SingleComment";
 
 export default function CommentSections({ article_id, comment_count }) {
-  const { userLoggedIn } = useContext(UserContext);
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -29,17 +27,27 @@ export default function CommentSections({ article_id, comment_count }) {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchCommentsByArticleId(article_id, pageNo, commentsPerPage, sortBy, order)
-      .then(({ data: { comments } }) => {
-        setComments(comments);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        setIsError(true);
-        console.log(err);
-      });
-  }, [article_id, pageNo, commentsPerPage, sortBy, order]);
+    if (comment_count > 0) {
+      fetchCommentsByArticleId(
+        article_id,
+        pageNo,
+        commentsPerPage,
+        sortBy,
+        order
+      )
+        .then(({ data: { comments } }) => {
+          setComments(comments);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          setIsError(true);
+          console.log(err);
+        });
+    } else {
+      setIsLoading(false);
+    }
+  }, [article_id, pageNo, commentsPerPage, sortBy, order, comment_count]);
 
   const lowerCommentIndex = (pageNo - 1) * commentsPerPage;
   let upperCommentIndex = pageNo * commentsPerPage;
@@ -50,14 +58,15 @@ export default function CommentSections({ article_id, comment_count }) {
     upperCommentIndex = comment_count;
   }
 
-  return comment_count === 0 ? (
-    <p className="noComments">There is no comments yet for this post</p>
-  ) : isError ? (
+  return isError ? (
     "error"
   ) : isLoading ? (
     "Loading comments"
   ) : (
     <div className="comments-container">
+      {comment_count === 0 && (
+        <p className="noComments">There is no comments yet for this post</p>
+      )}
       <AddComment
         article_id={article_id}
         setComments={setComments}
@@ -81,23 +90,10 @@ export default function CommentSections({ article_id, comment_count }) {
       <ul className="listOfComments">
         {comments.map((comment) => (
           <li key={comment.comment_id} className="single-comment">
-            <div className="authorControls">
-              <p className="comment-author">{comment.author}: </p>
-              {comment.author === userLoggedIn.username && (
-                <DeleteComment
-                  comment_id={comment.comment_id}
-                  comments={comments}
-                  setComments={setComments}
-                />
-              )}
-            </div>
-            <CreatedTime timeString={comment.created_at} />
-            <p className="comment-content">{comment.body}</p>
-            <VotesControl
-              id={comment.comment_id}
-              updateVotes={updateCommentVotes}
-              currVotes={comment.votes}
-              isArticle={false}
+            <SingleComment
+              comment={comment}
+              comments={comments}
+              setComments={setComments}
             />
           </li>
         ))}

@@ -1,12 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import hamburgerIcon from "../assets/Hamburger-icon.png";
+import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
 
 export default function MobileNav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
+  const navigate = useNavigate();
 
   function handleNavClick() {
     setMenuOpen(!menuOpen);
+  }
+
+  function handleSignOutClick() {
+    setUserLoggedIn("");
+    navigate("/login");
   }
 
   return (
@@ -29,6 +38,9 @@ export default function MobileNav() {
             <Link className="navButtons" to="/">
               News Feed
             </Link>
+          </li>
+          <li className="navLinkItem" onClick={handleSignOutClick}>
+            Sign Out
           </li>
         </ul>
       </menu>
