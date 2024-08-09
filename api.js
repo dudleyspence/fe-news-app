@@ -4,10 +4,20 @@ const newsApi = axios.create({
   baseURL: "https://be-news-api-2ebb.onrender.com/api/",
 });
 
-export const fetchArticles = (topic) => {
+export const fetchArticles = (
+  topic,
+  sortBy,
+  order,
+  pageNo,
+  articlesPerPage
+) => {
   const queries = {
     params: {
-      topic,
+      topic: topic,
+      sort_by: sortBy,
+      order: order,
+      p: pageNo,
+      limit: articlesPerPage,
     },
   };
   return newsApi.get("/articles", queries);

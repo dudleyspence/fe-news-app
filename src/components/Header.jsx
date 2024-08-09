@@ -4,12 +4,15 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-  const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
+  const { userLoggedIn } = useContext(UserContext);
   const navigate = useNavigate();
-  console.log(userLoggedIn);
 
   function handleTitleClick() {
     navigate("/");
+  }
+
+  function handleProfileClick() {
+    navigate("/profile");
   }
 
   return userLoggedIn ? (
@@ -19,8 +22,12 @@ export default function Header() {
         <h1 onClick={handleTitleClick}>Trail Talk</h1>
       </div>
       <div className="rightHeader">
-        <img src={userLoggedIn.avatar_url} alt="user avatar" />
-        <p>{userLoggedIn.name}</p>
+        <img
+          src={userLoggedIn.avatar_url}
+          alt="user avatar"
+          onClick={handleProfileClick}
+        />
+        <p onClick={handleProfileClick}>{userLoggedIn.name}</p>
       </div>
     </header>
   ) : (

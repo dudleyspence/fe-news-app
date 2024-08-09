@@ -1,19 +1,33 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchArticles } from "../../api";
 import ArticleCard from "./ArticleCard";
 import TopicsNav from "./TopicsNav";
+import ListControls from "./ListControls";
+import PageControls from "./PageControls";
 
 export default function ArticlesList() {
   const [articlesList, setArticlesList] = useState([]);
   const { topic } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [pageNo, setPageNo] = useState(1);
+  const [articlesPerPage, setArticlesPerPage] = useState(5);
+  const [sortBy, setSortBy] = useState("created_at");
+  const [order, setOrder] = useState("desc");
+  const [totalResults, setTotalResults] = useState(0);
+
+  useEffect(() => {
+    setPageNo(1);
+    setSortBy("created_at");
+    setOrder("desc");
+  }, [topic]);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchArticles(topic)
+    fetchArticles(topic, sortBy, order, pageNo, articlesPerPage)
       .then(({ data }) => {
+        setTotalResults(data.total);
         setArticlesList(data.articles);
         setIsLoading(false);
       })
@@ -21,7 +35,7 @@ export default function ArticlesList() {
         setIsError(true);
         setIsLoading(false);
       });
-  }, [topic, setArticlesList]);
+  }, [topic, setArticlesList, sortBy, order, pageNo, articlesPerPage]);
 
   return isError ? (
     "Error"
@@ -30,6 +44,17 @@ export default function ArticlesList() {
   ) : (
     <section className="section-container">
       <TopicsNav />
+      <ListControls
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        order={order}
+        setOrder={setOrder}
+        pageNo={pageNo}
+        setPageNo={setPageNo}
+        elementsPerPage={articlesPerPage}
+        setElementsPerPage={setArticlesPerPage}
+        canSortByComments={true}
+      />
       <div id="articles-list-container">
         <ul className="articles-list">
           {articlesList.map((article) => (
@@ -39,6 +64,12 @@ export default function ArticlesList() {
           ))}
         </ul>
       </div>
+      <PageControls
+        pageNo={pageNo}
+        setPageNo={setPageNo}
+        elementsPerPage={articlesPerPage}
+        element_count={totalResults}
+      />
     </section>
   );
 }

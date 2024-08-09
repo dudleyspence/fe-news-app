@@ -5,6 +5,7 @@ import AddComment from "./AddComment";
 import ListControls from "./ListControls";
 
 import SingleComment from "./SingleComment";
+import PageControls from "./PageControls";
 
 export default function CommentSections({ article_id, comment_count }) {
   const [comments, setComments] = useState([]);
@@ -16,14 +17,6 @@ export default function CommentSections({ article_id, comment_count }) {
   const [order, setOrder] = useState("desc");
 
   console.log(comments, "<<<< Comments");
-
-  function handleNextPageClick() {
-    setPageNo(pageNo + 1);
-  }
-
-  function handleNextPreviousClick() {
-    setPageNo(pageNo - 1);
-  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -49,15 +42,6 @@ export default function CommentSections({ article_id, comment_count }) {
     }
   }, [article_id, pageNo, commentsPerPage, sortBy, order, comment_count]);
 
-  const lowerCommentIndex = (pageNo - 1) * commentsPerPage;
-  let upperCommentIndex = pageNo * commentsPerPage;
-
-  const isLastPage = pageNo === Math.floor(comment_count / commentsPerPage) + 1;
-
-  if (isLastPage) {
-    upperCommentIndex = comment_count;
-  }
-
   return isError ? (
     "error"
   ) : isLoading ? (
@@ -82,10 +66,6 @@ export default function CommentSections({ article_id, comment_count }) {
         elementsPerPage={commentsPerPage}
         setElementsPerPage={setCommentsPerPage}
       />
-      <p className="totalComments">
-        Showing {lowerCommentIndex}-{upperCommentIndex} of {comment_count + " "}
-        comments
-      </p>
 
       <ul className="listOfComments">
         {comments.map((comment) => (
@@ -99,14 +79,12 @@ export default function CommentSections({ article_id, comment_count }) {
         ))}
       </ul>
 
-      <div className="pageControls">
-        <button onClick={handleNextPageClick} disabled={isLastPage}>
-          Next Page
-        </button>
-        <button onClick={handleNextPreviousClick} disabled={pageNo === 1}>
-          Previous Page
-        </button>
-      </div>
+      <PageControls
+        pageNo={pageNo}
+        setPageNo={setPageNo}
+        elementsPerPage={commentsPerPage}
+        element_count={comment_count}
+      />
     </div>
   );
 }
