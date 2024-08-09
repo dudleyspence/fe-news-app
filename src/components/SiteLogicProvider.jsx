@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Login from "./Login";
 import ArticlesList from "./ArticlesList";
 import { Routes, Route } from "react-router-dom";
@@ -7,44 +7,44 @@ import { UserContext } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
 
 export default function SiteLogicProvider() {
-  const [articlesList, setArticlesList] = useState([]);
-  const [topic, setTopic] = useState("");
-  const [currArticleId, setCurrArticleId] = useState("");
-  const { userLoggedIn } = useContext(UserContext);
+  const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
+  const [isNotLoading, setIsNotLoading] = useState(false);
 
-  return (
+  useEffect(() => {
+    const storedUser = localStorage.getItem("userLoggedIn");
+    if (storedUser) {
+      setUserLoggedIn(JSON.parse(storedUser));
+    }
+    setIsNotLoading(true);
+  }, []);
+
+  useEffect(() => {
+    if (userLoggedIn) {
+      localStorage.setItem("userLoggedIn", JSON.stringify(userLoggedIn));
+    } else {
+      localStorage.removeItem("userLoggedIn");
+    }
+  }, [userLoggedIn]);
+
+  return isNotLoading ? (
     <Routes>
       {/* login in page */}
       <Route path="/login" element={<Login />} />
       <Route
         path={"/"}
-        element={
-          userLoggedIn ? (
-            <ArticlesList
-              articlesList={articlesList}
-              setArticlesList={setArticlesList}
-              topic={topic}
-              setCurrArticleId={setCurrArticleId}
-            />
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
+        element={userLoggedIn ? <ArticlesList /> : <Navigate to="/login" />}
       />
+      <Route path="/topics/:topic" element={<ArticlesList />} />
       <Route
         path="/article/:article_id"
-        element={
-          userLoggedIn ? (
-            <SingleArticle currArticleId={currArticleId} />
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
+        element={userLoggedIn ? <SingleArticle /> : <Navigate to="/login" />}
       />
       <Route
         path="*"
         element={userLoggedIn ? <Navigate to="/" /> : <Navigate to="/login" />}
       />
     </Routes>
+  ) : (
+    "Page Loading"
   );
 }

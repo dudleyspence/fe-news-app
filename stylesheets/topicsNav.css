@@ -1,0 +1,8 @@
+.topics-nav ul {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 3vh 20vw;
+}
